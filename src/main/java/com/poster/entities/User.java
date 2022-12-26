@@ -24,8 +24,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column(name = "id")
-    private String id;
+    @Column(name = "uuid")
+    private String uuid;
     @Column(name = "username")
     private String userName;
     @Column(name = "email")
@@ -102,7 +102,7 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "uuid=" + uuid +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

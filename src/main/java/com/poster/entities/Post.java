@@ -35,5 +35,10 @@ public class Post {
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Commentary> commentaries;
 
-
+    public Post(String subject, String text, LocalDateTime created, User user) {
+        this.subject = subject;
+        this.text = text;
+        this.created = created;
+        this.user = user;
+    }
 }

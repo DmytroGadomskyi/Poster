@@ -30,4 +30,11 @@ public class Commentary {
 
     @ManyToOne
     private Post post;
+
+    public Commentary(String text, LocalDateTime created, User user, Post post) {
+        this.text = text;
+        this.created = created;
+        this.user = user;
+        this.post = post;
+    }
 }
