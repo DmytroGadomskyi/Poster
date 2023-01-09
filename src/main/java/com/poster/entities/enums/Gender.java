@@ -1,4 +1,4 @@
-package com.poster.entities;
+package com.poster.entities.enums;
 
 public enum Gender {
     MALE,

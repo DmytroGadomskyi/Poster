@@ -1,5 +1,6 @@
 package com.poster.entities;
 
+import com.poster.entities.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
