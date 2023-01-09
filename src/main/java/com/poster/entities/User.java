@@ -33,22 +33,19 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     @Column(name = "birthdate")
-    private LocalDate birthDate;
-    @Column(name = "firstname")
-    private String firstName;
-    @Column(name = "age")
-    private int age;
-    @Column(name = "city")
-    private String city;
+    private LocalDate dateRegistered;
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     List<Post> posts;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     List<Commentary> commentaries;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    List<UserProfiles> userProfiles;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
@@ -56,14 +53,11 @@ public class User implements UserDetails {
     private boolean isEnabled = true;
 
 
-    public User(String userName, String email, String password, LocalDate birthDate, String firstName, int age, String city, Role role) {
+    public User(String userName, String email, String password, LocalDate dateRegistered, Role role) {
+        this.dateRegistered = dateRegistered;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.birthDate = birthDate;
-        this.firstName = firstName;
-        this.age = age;
-        this.city = city;
         this.role = role;
     }
 
@@ -99,22 +93,5 @@ public class User implements UserDetails {
         return isEnabled;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "uuid=" + uuid +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", birthDate=" + birthDate +
-                ", firstName='" + firstName + '\'' +
-                ", age=" + age +
-                ", city='" + city + '\'' +
-                ", role=" + role +
-                ", isAccountNonExpired=" + isAccountNonExpired +
-                ", isAccountNonLocked=" + isAccountNonLocked +
-                ", isCredentialsNonExpired=" + isCredentialsNonExpired +
-                ", isEnabled=" + isEnabled +
-                '}';
-    }
+
 }
