@@ -1,7 +1,7 @@
 package com.poster.sevice.impl;
 
-import com.poster.dao.CommentaryDao;
-import com.poster.entities.Commentary;
+import com.poster.dao.PostCommentsDao;
+import com.poster.entities.PostComments;
 import com.poster.sevice.CommentaryService;
 import org.springframework.stereotype.Service;
 
@@ -10,29 +10,29 @@ import java.util.List;
 @Service
 public class CommentaryServiceImpl implements CommentaryService {
 
-    private final CommentaryDao commentaryDao;
+    private final PostCommentsDao commentaryDao;
 
-    public CommentaryServiceImpl(CommentaryDao commentaryDao) {
-        this.commentaryDao = commentaryDao;
+    public CommentaryServiceImpl(PostCommentsDao postCommentsDao) {
+        this.commentaryDao = postCommentsDao;
     }
 
     @Override
-    public List<Commentary> getAll() {
+    public List<PostComments> getAll() {
         return commentaryDao.findAll();
     }
 
     @Override
-    public Commentary getByUuid(String Uuid) {
+    public PostComments getByUuid(String Uuid) {
         return commentaryDao.getCommentaryByUuid(Uuid).get();
     }
 
     @Override
-    public void create(Commentary commentary) {
-        commentaryDao.save(commentary);
+    public void create(PostComments postComments) {
+        commentaryDao.save(postComments);
     }
 
     @Override
-    public void delete(Commentary commentary) {
-        commentaryDao.delete(commentary);
+    public void delete(PostComments postComments) {
+        commentaryDao.delete(postComments);
     }
 }

@@ -43,7 +43,7 @@ public class User implements UserDetails {
     List<Post> posts;
 
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    List<Commentary> commentaries;
+    List<PostComments> commentaries;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     List<UserProfiles> userProfiles;

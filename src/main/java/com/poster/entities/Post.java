@@ -21,24 +21,23 @@ public class Post {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String uuid;
-
-    @Column (name = "subject")
-    private String subject;
+    @Column (name = "title")
+    private String title;
     @Column (name = "text")
     private String text;
     @CreationTimestamp
-    private LocalDateTime created;
+    private LocalDateTime published;
 
     @ManyToOne
     private User user;
 
     @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Commentary> commentaries;
+    List<PostComments> commentaries;
 
-    public Post(String subject, String text, LocalDateTime created, User user) {
-        this.subject = subject;
+    public Post(String title, String text, LocalDateTime published, User user) {
+        this.title = title;
         this.text = text;
-        this.created = created;
+        this.published = published;
         this.user = user;
     }
 }

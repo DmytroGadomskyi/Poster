@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "commentaries")
-public class Commentary {
+@Table(name = "PostComments")
+public class PostComments {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -31,7 +31,7 @@ public class Commentary {
     @ManyToOne
     private Post post;
 
-    public Commentary(String text, LocalDateTime created, User user, Post post) {
+    public PostComments(String text, LocalDateTime created, User user, Post post) {
         this.text = text;
         this.created = created;
         this.user = user;

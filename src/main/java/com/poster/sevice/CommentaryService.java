@@ -1,16 +1,16 @@
 package com.poster.sevice;
 
-import com.poster.entities.Commentary;
+import com.poster.entities.PostComments;
 
 import java.util.List;
 
 public interface CommentaryService {
 
-    List<Commentary> getAll();
+    List<PostComments> getAll();
 
-    Commentary getByUuid(String Uuid);
+    PostComments getByUuid(String Uuid);
 
-    void create(Commentary commentary);
+    void create(PostComments commentary);
 
-    void delete(Commentary commentary);
+    void delete(PostComments commentary);
 }
