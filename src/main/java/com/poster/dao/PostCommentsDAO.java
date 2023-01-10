@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PostCommentsDao extends JpaRepository<PostComments, Integer> {
+public interface PostCommentsDAO extends JpaRepository<PostComments, Integer> {
 
     @Query("SELECT c FROM PostComments c WHERE c.uuid=?1")
     Optional<PostComments>getCommentaryByUuid(String uuid);

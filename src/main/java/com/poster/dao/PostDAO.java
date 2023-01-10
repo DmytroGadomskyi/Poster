@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PostDao extends JpaRepository<Post,Integer> {
+public interface PostDAO extends JpaRepository<Post,Integer> {
 
     @Query("SELECT p FROM Post p WHERE p.uuid=?1")
     Optional<Post> getPostByUuid(String uuid);
