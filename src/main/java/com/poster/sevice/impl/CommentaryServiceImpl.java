@@ -1,8 +1,9 @@
 package com.poster.sevice.impl;
 
-import com.poster.dao.PostCommentsDao;
+import com.poster.dao.PostCommentsDAO;
 import com.poster.entities.PostComments;
 import com.poster.sevice.CommentaryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +11,10 @@ import java.util.List;
 @Service
 public class CommentaryServiceImpl implements CommentaryService {
 
-    private final PostCommentsDao commentaryDao;
+    private final PostCommentsDAO commentaryDao;
 
-    public CommentaryServiceImpl(PostCommentsDao postCommentsDao) {
+    @Autowired
+    public CommentaryServiceImpl(PostCommentsDAO postCommentsDao) {
         this.commentaryDao = postCommentsDao;
     }
 

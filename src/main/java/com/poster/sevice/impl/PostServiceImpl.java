@@ -3,6 +3,7 @@ package com.poster.sevice.impl;
 import com.poster.dao.PostDAO;
 import com.poster.entities.Post;
 import com.poster.sevice.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostDAO postDao;
 
+    @Autowired
     public PostServiceImpl(PostDAO postDao) {
         this.postDao = postDao;
     }
