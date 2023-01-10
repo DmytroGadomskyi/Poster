@@ -1,6 +1,6 @@
 package com.poster.sevice.impl;
 
-import com.poster.dao.PostDao;
+import com.poster.dao.PostDAO;
 import com.poster.entities.Post;
 import com.poster.sevice.PostService;
 import org.springframework.stereotype.Service;
@@ -10,9 +10,9 @@ import java.util.List;
 @Service
 public class PostServiceImpl implements PostService {
 
-    private final PostDao postDao;
+    private final PostDAO postDao;
 
-    public PostServiceImpl(PostDao postDao) {
+    public PostServiceImpl(PostDAO postDao) {
         this.postDao = postDao;
     }
 
