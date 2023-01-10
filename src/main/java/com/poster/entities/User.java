@@ -40,13 +40,19 @@ public class User implements UserDetails {
     private Role role = Role.USER;
 
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    List<Post> posts;
+    private List<Post> posts;
 
     @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    List<PostComments> commentaries;
+    private List<PostComments> commentaries;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    List<UserProfiles> userProfiles;
+    private List<UserProfiles> userProfiles;
+
+    @OneToOne (mappedBy = "user")
+    private PostFavorites postFavorites;
+
+    @ManyToMany
+    private List<FollowingRelationships> followingRelationships;
 
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;

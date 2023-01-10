@@ -27,12 +27,23 @@ public class Post {
     private String text;
     @CreationTimestamp
     private LocalDateTime published;
+    @Column (name = "viewCount")
+    private int viewCount;
 
     @ManyToOne
     private User user;
 
-    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<PostComments> commentaries;
+    @OneToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "post")
+    private List<PostComments> commentaries;
+
+    @ManyToOne
+    private PostFavorites postFavorites;
+
+    @OneToOne
+    private PostTags postTags;
+
+    @OneToOne
+    private PostCategories postCategories;
 
     public Post(String title, String text, LocalDateTime published, User user) {
         this.title = title;
