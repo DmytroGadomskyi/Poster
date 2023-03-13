@@ -6,14 +6,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 @Service
@@ -29,10 +27,6 @@ public class JwtService {
         return  extractClaim(token, Claims::getExpiration);
     }
 
-    public boolean hasClaim(String token, String claimName) {
-        final Claims claims = extractAllClaims(token);
-        return claims.get(claimName) != null;
-    }
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final  Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);

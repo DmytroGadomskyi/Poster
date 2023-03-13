@@ -2,12 +2,14 @@ package com.poster.entities;
 
 import com.poster.entities.enums.Gender;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
+@Data
 @NoArgsConstructor
 @Table(name = "user_profiles")
 public class UserProfiles {
@@ -48,7 +50,7 @@ public class UserProfiles {
         this.occupation = occupation;
         this.about = about;
         this.dateUpdated = dateUpdated;
-//        this.locations = locations;
+        this.locations = locations;
     }
 
 }
