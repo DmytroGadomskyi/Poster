@@ -4,8 +4,6 @@ import com.poster.entities.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,19 +12,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
 @NoArgsConstructor
-@ToString
 @Table(name = "user")
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column(name = "uuid")
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID userID;
     @Column(name = "username")
     private String userName;
     @Column(name = "email")
@@ -46,12 +43,16 @@ public class User implements UserDetails {
     private List<PostComments> commentaries;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<UserProfiles> userProfiles;
+    List<UserProfiles> userProfiles;
 
     @OneToOne (mappedBy = "user")
     private PostFavorites postFavorites;
 
     @ManyToMany
+    @JoinTable(
+            name = "relationships_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_relationships_id"))
     private List<FollowingRelationships> followingRelationships;
 
     private boolean isAccountNonExpired = true;
@@ -66,6 +67,11 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.role = role;
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     @Override

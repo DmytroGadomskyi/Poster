@@ -4,20 +4,25 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,31 +30,20 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfig{
+public class SecurityConfig {
 
     private final JwtAthFilter jwtAuthFilter;
+    private final UserDetailsService userDetailsService;
 
-    private final static List<UserDetails> APPLICATION_USERS = Arrays.asList(
-//            new User(
-//                    "email@Gmail.com",
-//                    "password",
-//                    Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN"))
-//
-//            ),
-//            new User(
-//                    "user@Gmail.com",
-//                    "password",
-//                    Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
-//
-//            )
-    );
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests()
+        http.authorizeHttpRequests()
+               .requestMatchers(HttpMethod.POST,"/api/v1/auth/registration")
+                .permitAll()
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -63,7 +57,7 @@ public class SecurityConfig{
     @Bean
     public AuthenticationProvider authenticationProvider() {
         final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
@@ -75,17 +69,7 @@ public class SecurityConfig{
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        //return new BCryptPasswordEncoder();
-        return NoOpPasswordEncoder.getInstance();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return email -> APPLICATION_USERS
-                .stream()
-                .filter(u -> u.getUsername().equals(email))
-                .findFirst()
-                .orElseThrow(() -> new UsernameNotFoundException("No user was found"));
+        return new BCryptPasswordEncoder();
     }
 
 }

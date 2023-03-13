@@ -1,8 +1,8 @@
-package com.poster.sevice.impl;
+package com.poster.service.impl;
 
 import com.poster.dao.PostDAO;
 import com.poster.entities.Post;
-import com.poster.sevice.PostService;
+import com.poster.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

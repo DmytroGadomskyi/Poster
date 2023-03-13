@@ -1,25 +1,25 @@
 package com.poster.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Entity
-@Data
 @NoArgsConstructor
 @ToString
 @Table (name = "categories")
 public class Categories {
 
     @Id
-    @GeneratedValue (generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String categoryID;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID categoriesID;
     @Column (name = "category_name")
     private String categoryName;
 
     @ManyToOne
+    @JoinColumn(name = "post_categories_id")
     private PostCategories postCategories;
 }

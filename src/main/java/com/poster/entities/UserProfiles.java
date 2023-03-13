@@ -2,26 +2,24 @@ package com.poster.entities;
 
 import com.poster.entities.enums.Gender;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
-@Data
 @NoArgsConstructor
 @Table(name = "user_profiles")
 public class UserProfiles {
 
     @Id
-    @GeneratedValue(generator = "system_uuid")
-    @GenericGenerator(name = "system_uuid", strategy = "uuid")
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID userProfilesID;
     @Column(name = "first_name")
-    private String FirstName;
+    private String firstName;
     @Column(name = "last_name")
-    private String LastName;
+    private String lastName;
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -38,18 +36,19 @@ public class UserProfiles {
     private Locations locations;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public UserProfiles(String firstName, String lastName, Gender gender, LocalDate dateOfBirth, String occupation,
                         String about, LocalDate dateUpdated, Locations locations) {
-        FirstName = firstName;
-        LastName = lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.occupation = occupation;
         this.about = about;
         this.dateUpdated = dateUpdated;
-        this.locations = locations;
+//        this.locations = locations;
     }
 
 }

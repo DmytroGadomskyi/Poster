@@ -1,12 +1,14 @@
-package com.poster.sevice.impl;
+package com.poster.service.impl;
 
 import com.poster.dao.UserDAO;
 import com.poster.entities.User;
-import com.poster.sevice.UserService;
+import com.poster.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;

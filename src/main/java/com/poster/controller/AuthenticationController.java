@@ -3,19 +3,19 @@ package com.poster.controller;
 import com.poster.config.JwtUtils;
 import com.poster.dao.UserDAO;
 import com.poster.dto.AuthenticationRequest;
+import com.poster.entities.User;
+import com.poster.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping
 @RequiredArgsConstructor
 public class AuthenticationController {
 
@@ -23,6 +23,8 @@ public class AuthenticationController {
     private final UserDAO userDAO;
     private final UserDetailsService userDetailsService;
     private final JwtUtils jwtUtils;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/authenticate")
     public ResponseEntity<String> authenticate(
@@ -36,5 +38,13 @@ public class AuthenticationController {
             return ResponseEntity.ok(jwtUtils.generateToken(userDetails));
         }
         return ResponseEntity.status(400).body("Some error has occured");
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<?> registration (@RequestBody AuthenticationRequest request) {
+        User user = new User(request.getEmail(), passwordEncoder.encode(request.getPassword()));
+        System.out.println(user);
+        userService.saveToDB(user);
+        return ResponseEntity.ok(user);
     }
 }

@@ -1,7 +1,7 @@
-package com.poster.sevice.impl;
+package com.poster.service.impl;
 
 import com.poster.dao.UserProfilesDAO;
-import com.poster.sevice.UserProfilesService;
+import com.poster.service.UserProfilesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

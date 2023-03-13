@@ -1,4 +1,4 @@
-package com.poster.sevice;
+package com.poster.service;
 
 import com.poster.entities.Post;
 

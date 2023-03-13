@@ -1,22 +1,21 @@
 package com.poster.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Entity
-@Data
 @NoArgsConstructor
 @ToString
 @Table (name = "tags")
 public class Tags {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String tagID;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID tagID;
     @Column (name = "tag_name")
     private String tagName;
 

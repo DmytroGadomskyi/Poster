@@ -1,28 +1,23 @@
 package com.poster.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Data
 @NoArgsConstructor
 @ToString
 @Table (name = "following_relationships")
 public class FollowingRelationships {
 
     @Id
-    @GeneratedValue (generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String relationshipID;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID relationshipsID;
 
-    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user",
-            joinColumns = @JoinColumn(name = "uuid"))
+    @ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "followingRelationships")
     private List<User> users;
 }

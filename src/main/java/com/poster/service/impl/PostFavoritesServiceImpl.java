@@ -1,7 +1,7 @@
-package com.poster.sevice.impl;
+package com.poster.service.impl;
 
 import com.poster.dao.PostFavoritesDAO;
-import com.poster.sevice.PostFavoritesService;
+import com.poster.service.PostFavoritesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

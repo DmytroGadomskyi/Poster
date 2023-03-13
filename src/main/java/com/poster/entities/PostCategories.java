@@ -1,24 +1,20 @@
 package com.poster.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Data
 @NoArgsConstructor
-@ToString
 @Table (name = "post_categories")
 public class PostCategories {
 
     @Id
-    @GeneratedValue (generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String postCategoryID;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    private UUID postCategoriesID;
 
     @OneToOne
     private Post post;

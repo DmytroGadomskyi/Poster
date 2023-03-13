@@ -1,7 +1,7 @@
-package com.poster.sevice.impl;
+package com.poster.service.impl;
 
 import com.poster.dao.FollowingRelationshipsDAO;
-import com.poster.sevice.FollowingRelationshipsService;
+import com.poster.service.FollowingRelationshipsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
