@@ -1,50 +1,29 @@
 package com.poster.controller;
 
-import com.poster.config.JwtUtils;
-import com.poster.dao.UserDAO;
-import com.poster.dto.AuthenticationRequest;
-import com.poster.entities.User;
-import com.poster.service.UserService;
+import com.poster.auth.AuthenticationRequest;
+import com.poster.auth.AuthenticationResponse;
+import com.poster.auth.AuthenticationService;
+import com.poster.auth.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationManager authenticationManager;
-    private final UserDAO userDAO;
-    private final UserDetailsService userDetailsService;
-    private final JwtUtils jwtUtils;
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-
-    @PostMapping("/authenticate")
-    public ResponseEntity<String> authenticate(
-            @RequestBody AuthenticationRequest request
-            ) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-        if (userDetails != null) {
-            return ResponseEntity.ok(jwtUtils.generateToken(userDetails));
-        }
-        return ResponseEntity.status(400).body("Some error has occured");
-    }
+    private final AuthenticationService service;
 
     @PostMapping("/registration")
-    public ResponseEntity<?> registration (@RequestBody AuthenticationRequest request) {
-        User user = new User(request.getEmail(), passwordEncoder.encode(request.getPassword()));
-        System.out.println(user);
-        userService.saveToDB(user);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<AuthenticationResponse> registration (@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(service.register(request));
     }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        return ResponseEntity.ok(service.authenticate(request));
+    }
+
+
 }

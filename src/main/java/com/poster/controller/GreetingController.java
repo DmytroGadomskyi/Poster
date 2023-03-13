@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping("/api/v1/demo-controller")
 public class GreetingController {
 
-//    @GetMapping
-//    public ResponseEntity<String> sayHello() {
-//        return ResponseEntity.ok("Hello from Api");
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity<String> sayGoodBye() {
-//        return ResponseEntity.ok("Good by and see you again");
-//    }
+    @GetMapping("/hello")
+    public ResponseEntity<String> sayHello() {
+        return ResponseEntity.ok("Hello from Api");
+    }
+
+    @GetMapping("/goodbye")
+    public ResponseEntity<String> sayGoodBye() {
+        return ResponseEntity.ok("Good by and see you again");
+    }
 
 }
